@@ -4,7 +4,7 @@
 # More information on the original code, please visit this link:
 # https://scipy.github.io/old-wiki/pages/Cookbook/OLS.html
 
-from __future__ import division
+from __future__ import division, print_function
 
 from scipy import c_, ones, dot, stats, diff
 from scipy.linalg import inv, solve, det
@@ -57,7 +57,7 @@ class ols(object):
             else:
                 self.x_varnm = ['const'] + \
                                ['x' + str(i) for i in
-                                xrange(1, x.shape[1] + 1)]
+                                range(1, x.shape[1] + 1)]
 
         else:
             self.x_varnm = ['const'] + x_varnm
@@ -244,29 +244,29 @@ class ols(object):
         JB, JBpv, skew, kurtosis = self.JB()
         omni, omnipv = self.omni()
 
-        print '\n=============================================================================='
-        print "Dependent Variable: " + self.y_varnm
-        print "Method: Least Squares"
-        print "Date: ", strftime("%a, %d %b %Y", t)
-        print "Time: ", strftime("%H:%M:%S", t)
-        print '# obs:               %5.0f' % self.nobs
-        print '# variables:     %5.0f' % self.ncoef
-        print '=============================================================================='
-        print 'variable     coefficient     std. Error      t-statistic     prob.'
-        print '=============================================================================='
-        for i in xrange(len(self.x_varnm)):
-            print '''% -5s          % -5.6f     % -5.6f     % -5.6f     % -5.6f''' % tuple([self.x_varnm[i], self.b[i], self.se[i], self.t[i], self.p[i]])
-        print '=============================================================================='
-        print 'Models stats                         Residual stats'
-        print '=============================================================================='
-        print 'R-squared            % -5.6f         Durbin-Watson stat  % -5.6f' % tuple([self.R2, self.dw()])
-        print 'Adjusted R-squared   % -5.6f         Omnibus stat        % -5.6f' % tuple([self.R2adj, omni])
-        print 'F-statistic          % -5.6f         Prob(Omnibus stat)  % -5.6f' % tuple([self.F, omnipv])
-        print 'Prob (F-statistic)   % -5.6f			JB stat             % -5.6f' % tuple([self.Fpv, JB])
-        print 'Log likelihood       % -5.6f			Prob(JB)            % -5.6f' % tuple([ll, JBpv])
-        print 'AIC criterion        % -5.6f         Skew                % -5.6f' % tuple([aic, skew])
-        print 'BIC criterion        % -5.6f         Kurtosis            % -5.6f' % tuple([bic, kurtosis])
-        print '=============================================================================='
+        print('\n==============================================================================')
+        print("Dependent Variable: " + self.y_varnm)
+        print("Method: Least Squares")
+        print("Date: ", strftime("%a, %d %b %Y", t))
+        print("Time: ", strftime("%H:%M:%S", t))
+        print('# obs:               %5.0f' % self.nobs)
+        print('# variables:     %5.0f' % self.ncoef)
+        print('==============================================================================')
+        print('variable     coefficient     std. Error      t-statistic     prob.')
+        print('==============================================================================')
+        for i in range(len(self.x_varnm)):
+            print('''% -5s          % -5.6f     % -5.6f     % -5.6f     % -5.6f''' % tuple([self.x_varnm[i], self.b[i], self.se[i], self.t[i], self.p[i]]))
+        print('==============================================================================')
+        print('Models stats                         Residual stats')
+        print('==============================================================================')
+        print('R-squared            % -5.6f         Durbin-Watson stat  % -5.6f' % tuple([self.R2, self.dw()]))
+        print('Adjusted R-squared   % -5.6f         Omnibus stat        % -5.6f' % tuple([self.R2adj, omni]))
+        print('F-statistic          % -5.6f         Prob(Omnibus stat)  % -5.6f' % tuple([self.F, omnipv]))
+        print('Prob (F-statistic)   % -5.6f			JB stat             % -5.6f' % tuple([self.Fpv, JB]))
+        print('Log likelihood       % -5.6f			Prob(JB)            % -5.6f' % tuple([ll, JBpv]))
+        print('AIC criterion        % -5.6f         Skew                % -5.6f' % tuple([aic, skew]))
+        print('BIC criterion        % -5.6f         Kurtosis            % -5.6f' % tuple([bic, kurtosis]))
+        print('==============================================================================')
 
     def to_file(self, filename=None):
         """
@@ -303,7 +303,7 @@ class ols(object):
 
         estimates = {}
 
-        for i in xrange(len(self.x_varnm)):
+        for i in range(len(self.x_varnm)):
             estimate = {}
 
             estimate['estimate'] = self.b[i]

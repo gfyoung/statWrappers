@@ -55,7 +55,7 @@ class TestOLS(unittest.TestCase):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
 
-            for i in xrange(10):
+            for i in range(10):
                 coeff = np.random.random_integers(1, 100)
                 inter = np.random.random_integers(1, 100)
 
@@ -78,7 +78,7 @@ class TestOLS(unittest.TestCase):
         alpha = 0.1
         tStatMax = 1
 
-        for i in xrange(10):
+        for i in range(10):
             x = np.random.random_integers(100, 200, 10)
             y = np.array([i * (-1)**index for index, i in enumerate(x)])
 

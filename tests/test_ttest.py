@@ -54,11 +54,11 @@ class TestTtest1Samp(unittest.TestCase):
         expected_t_stat = 0.54772255750516607
         expected_p_val = 0.59882713669728904
 
-        for i in xrange(10):
+        for i in range(10):
             test = ttest_1samp(a, popmean, alpha=np.random.rand())
 
-            self.assertLessEqual(abs(test.t_stat - expected_t_stat), EPSILON)
-            self.assertLessEqual(abs(test.p_val - expected_p_val), EPSILON)
+            self.assertTrue(abs(test.t_stat - expected_t_stat) <= EPSILON)
+            self.assertTrue(abs(test.p_val - expected_p_val) <= EPSILON)
 
     def test_same_t_stat_changing_alt_hyp(self):
         a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -71,14 +71,15 @@ class TestTtest1Samp(unittest.TestCase):
 
         for alt_hyp in ('unequal', 'less', 'greater'):
             test = ttest_1samp(a, popmean, alt_hyp=alt_hyp, alpha=alpha)
-            self.assertLessEqual(abs(test.t_stat - expected_t_stat), EPSILON)
+            self.assertTrue(abs(test.t_stat - expected_t_stat) <= EPSILON)
 
             if alt_hyp == 'unequal':
-                self.assertLessEqual(abs(test.p_val - expected_p_val), EPSILON)
+                self.assertTrue(abs(test.p_val -
+                                    expected_p_val) <= EPSILON)
 
             else:
-                self.assertLessEqual(abs(test.p_val -
-                                         expected_p_val_half), EPSILON)
+                self.assertTrue(abs(test.p_val -
+                                    expected_p_val_half) <= EPSILON)
 
     def test_no_reject_null_hyp(self):
         a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -86,7 +87,7 @@ class TestTtest1Samp(unittest.TestCase):
         alpha = 0.1
 
         test = ttest_1samp(a, popmean, alpha=alpha)
-        self.assertLessEqual(alpha, test.p_val)
+        self.assertTrue(alpha <= test.p_val)
 
     def test_reject_null_hyp_unequal(self):
         a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -94,7 +95,7 @@ class TestTtest1Samp(unittest.TestCase):
         alpha = 0.1
 
         test = ttest_1samp(a, popmean, alt_hyp='unequal', alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
     def test_reject_null_hyp_greater(self):
         a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -102,7 +103,7 @@ class TestTtest1Samp(unittest.TestCase):
         alpha = 0.1
 
         test = ttest_1samp(a, popmean, alt_hyp='greater', alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
     def test_reject_null_hyp_less(self):
         a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -110,7 +111,7 @@ class TestTtest1Samp(unittest.TestCase):
         alpha = 0.1
 
         test = ttest_1samp(a, popmean, alt_hyp='less', alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
 
 class TestTtest2Samp(unittest.TestCase):
@@ -181,7 +182,7 @@ class TestTtest2Samp(unittest.TestCase):
 
         for test_type in ('ind', 'rel'):
             for equal_var in (True, False):
-                for i in xrange(10):
+                for i in range(10):
                     test = ttest_2samp(a, b, test_type=test_type,
                                        equal_var=equal_var,
                                        alpha=np.random.rand())
@@ -189,10 +190,10 @@ class TestTtest2Samp(unittest.TestCase):
                     expected_t_stat = expected[test_type][equal_var]['t_stat']
                     expected_p_val = expected[test_type][equal_var]['p_val']
 
-                    self.assertLessEqual(abs(test.t_stat -
-                                             expected_t_stat), EPSILON)
-                    self.assertLessEqual(abs(test.p_val -
-                                             expected_p_val), EPSILON)
+                    self.assertTrue(abs(test.t_stat -
+                                        expected_t_stat) <= EPSILON)
+                    self.assertTrue(abs(test.p_val -
+                                        expected_p_val) <= EPSILON)
 
     def test_same_t_stat_changing_alt_hyp(self):
         seed = 1234567890
@@ -236,7 +237,7 @@ class TestTtest2Samp(unittest.TestCase):
 
         for test_type in ('ind', 'rel'):
             for alt_hyp in ('unequal', 'less', 'greater'):
-                for i in xrange(10):
+                for i in range(10):
                     test = ttest_2samp(a, b, test_type=test_type,
                                        equal_var=equal_var, alt_hyp=alt_hyp,
                                        alpha=alpha)
@@ -244,10 +245,10 @@ class TestTtest2Samp(unittest.TestCase):
                     expected_t_stat = expected[test_type][alt_hyp]['t_stat']
                     expected_p_val = expected[test_type][alt_hyp]['p_val']
 
-                    self.assertLessEqual(abs(test.t_stat -
-                                             expected_t_stat), EPSILON)
-                    self.assertLessEqual(abs(test.p_val -
-                                             expected_p_val), EPSILON)
+                    self.assertTrue(abs(test.t_stat -
+                                        expected_t_stat) <= EPSILON)
+                    self.assertTrue(abs(test.p_val -
+                                        expected_p_val) <= EPSILON)
 
     def test_no_reject_null_hyp(self):
         alpha = 0.1
@@ -257,7 +258,7 @@ class TestTtest2Samp(unittest.TestCase):
         b = np.array([i + diff for i in a])
 
         test = ttest_2samp(a, b, alpha=alpha)
-        self.assertLessEqual(alpha, test.p_val)
+        self.assertTrue(alpha <= test.p_val)
 
     def test_reject_null_hyp_unequal(self):
         alpha = 0.1
@@ -267,7 +268,7 @@ class TestTtest2Samp(unittest.TestCase):
         b = np.array([i + diff for i in a])
 
         test = ttest_2samp(a, b, alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
     def test_reject_null_hyp_greater(self):
         alpha = 0.1
@@ -277,7 +278,7 @@ class TestTtest2Samp(unittest.TestCase):
         b = np.array([i + diff for i in a])
 
         test = ttest_2samp(a, b, alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
     def test_reject_null_hyp_less(self):
         alpha = 0.1
@@ -287,7 +288,7 @@ class TestTtest2Samp(unittest.TestCase):
         b = np.array([i + diff for i in a])
 
         test = ttest_2samp(a, b, alpha=alpha)
-        self.assertGreater(alpha, test.p_val)
+        self.assertTrue(alpha > test.p_val)
 
 if __name__ == '__main__':
     unittest.main()

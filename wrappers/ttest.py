@@ -1,3 +1,4 @@
+from __future__ import print_function
 from time import localtime, strftime
 from json import dump
 
@@ -110,23 +111,23 @@ class ttest_1samp(object):
             else:
                 alternative = "Mean 1 > " + str(self.popmean)
 
-        print "\n=============================================================================="
-        print "Significance Test: T-Test (" + sided + ")"
-        print "Date:", strftime("%a, %d %b %Y", t)
-        print "Time:", strftime("%H:%M:%S", t)
+        print("\n==============================================================================")
+        print("Significance Test: T-Test (" + sided + ")")
+        print("Date:", strftime("%a, %d %b %Y", t))
+        print("Time:", strftime("%H:%M:%S", t))
 
-        print "\nAssumptions: "
-        print assumptions
+        print("\nAssumptions: ")
+        print(assumptions)
 
-        print "\nData Size:", str(size)
-        print "Population Mean:", str(self.popmean)
+        print("\nData Size:", str(size))
+        print("Population Mean:", str(self.popmean))
 
-        print "\nNull Hypothesis:        Mean 1 ==", self.popmean
-        print "Alternative Hypothesis:", alternative
+        print("\nNull Hypothesis:        Mean 1 ==", self.popmean)
+        print("Alternative Hypothesis:", alternative)
 
-        print "\nT-Statistic:", str(self.t_stat)
-        print "P-Value:", str(self.p_val)
-        print "Alpha:", str(self.alpha)
+        print("\nT-Statistic:", str(self.t_stat))
+        print("P-Value:", str(self.p_val))
+        print("Alpha:", str(self.alpha))
 
         NULL = "\nReject Null Hypothesis: "
         ALT = "Accept Alternative Hypothesis: "
@@ -136,21 +137,21 @@ class ttest_1samp(object):
 
         if (self.alpha and self.p_val >= self.alpha) or \
            self.p_val == 0 or not self.alpha:
-            print NULL + NO
-            print ALT + NO
+            print(NULL + NO)
+            print(ALT + NO)
 
         else:
-            print NULL + YES
+            print(NULL + YES)
 
             if self.alt_hyp == 'unequal' or \
                (self.alt_hyp == 'less' and self.t_stat < 0) or \
                (self.alt_hyp == 'greater' and self.t_stat > 0):
-                print ALT + YES
+                print(ALT + YES)
 
             else:
-                print ALT + NO
+                print(ALT + NO)
 
-        print "=============================================================================="
+        print("==============================================================================")
 
     def to_file(self, filename=None):
         """
@@ -363,22 +364,22 @@ class ttest_2samp(object):
             else:
                 alternative = "Mean 1 > Mean 2"
 
-        print "\n=============================================================================="
-        print "Significance Test: T-Test (" + sided + ")"
-        print "Date:", strftime("%a, %d %b %Y", t)
-        print "Time:", strftime("%H:%M:%S", t)
+        print("\n==============================================================================")
+        print("Significance Test: T-Test (" + sided + ")")
+        print("Date:", strftime("%a, %d %b %Y", t))
+        print("Time:", strftime("%H:%M:%S", t))
 
-        print "\nAssumptions: "
-        print assumptions
+        print("\nAssumptions: ")
+        print(assumptions)
 
-        print "\nData Size:", str(size)
+        print("\nData Size:", str(size))
 
-        print "\nNull Hypothesis:        Mean 1 == Mean 2"
-        print "Alternative Hypothesis:", alternative
+        print("\nNull Hypothesis:        Mean 1 == Mean 2")
+        print("Alternative Hypothesis:", alternative)
 
-        print "\nT-Statistic:", str(self.t_stat)
-        print "P-Value:", str(self.p_val)
-        print "Alpha:", str(self.alpha)
+        print("\nT-Statistic:", str(self.t_stat))
+        print("P-Value:", str(self.p_val))
+        print("Alpha:", str(self.alpha))
 
         NULL = "\nReject Null Hypothesis: "
         ALT = "Accept Alternative Hypothesis: "
@@ -388,21 +389,21 @@ class ttest_2samp(object):
 
         if (self.alpha and self.p_val >= self.alpha) or \
            self.p_val == 0 or not self.alpha:
-            print NULL + NO
-            print ALT + NO
+            print(NULL + NO)
+            print(ALT + NO)
 
         else:
-            print NULL + YES
+            print(NULL + YES)
 
             if self.alt_hyp == 'unequal' or \
                (self.alt_hyp == 'less' and self.t_stat < 0) or \
                (self.alt_hyp == 'greater' and self.t_stat > 0):
-                print ALT + YES
+                print(ALT + YES)
 
             else:
-                print ALT + NO
+                print(ALT + NO)
 
-        print "=============================================================================="
+        print("==============================================================================")
 
     def to_file(self, filename=None):
         """

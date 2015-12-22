@@ -1,0 +1,46 @@
+language: python
+
+sudo: false
+
+addons:
+  apt:
+    packages: &common_packages
+      - gfortran
+      - libatlas-dev
+      - libatlas-base-dev
+      - python-dev
+
+cache:
+   directories:
+      - $HOME/.cache/pip
+
+python:
+   - 2.6
+   - 2.7
+   - 3.2
+   - 3.3
+   - 3.4
+   - 3.5
+
+before_install:
+   - uname -a
+   - free -m
+   - df -h
+   - ulimit -a
+   - mkdir builds
+   - pushd builds
+   # Build into own virtualenv in order
+   # to control the build environment
+   - virtualenv --python=python venv
+   - source venv/bin/activate
+   - python -V
+   - pip install --upgrade pip setuptools
+   - pip install nose
+   # Installing numpy and scipy can
+   # cause Travis to timeout prematurely
+   # so we give extra time to do so
+   - travis_wait pip install numpy
+   - travis_wait pip install scipy
+   - popd
+
+script: nosetests
