@@ -345,6 +345,8 @@ class ols(object):
         return "OLS Regression on " + str(self.x.shape[0]) + " Observations"
 
     __repr__ = __str__
+    __bytes__ = __str__
+    __unicode__ = __str__
 
 if __name__ == "__main__":
     from numpy import array, column_stack

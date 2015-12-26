@@ -87,5 +87,16 @@ class TestOLS(unittest.TestCase):
             self.assertTrue(np.all(reg.p > alpha))
             self.assertTrue(np.all(abs(reg.t) < tStatMax))
 
+    def test_str_object(self):
+        seed = 1234567890
+        np.random.seed(seed)
+
+        x = np.random.rand(10)
+        y = np.random.rand(10)
+
+        reg = ols(x, y)
+        expected = "OLS Regression on 10 Observations"
+        self.assertTrue(str(reg) == expected, "Strings don't match")
+
 if __name__ == '__main__':
     unittest.main()

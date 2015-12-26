@@ -113,6 +113,17 @@ class TestTtest1Samp(unittest.TestCase):
         test = ttest_1samp(a, popmean, alt_hyp='less', alpha=alpha)
         self.assertTrue(alpha > test.p_val)
 
+    def test_str_object(self):
+        seed = 1234567890
+        np.random.seed(seed)
+
+        a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        popmean = 4.5
+
+        test = ttest_1samp(a, popmean, alpha=np.random.rand())
+        expected = ("1-Sample T-Test on Data of Size 9, "
+                    "Hypothesized Population Mean of 4.5")
+        self.assertTrue(str(test) == expected, "Strings don't match")
 
 class TestTtest2Samp(unittest.TestCase):
     def test_invalid_alt_hyp(self):
@@ -289,6 +300,17 @@ class TestTtest2Samp(unittest.TestCase):
 
         test = ttest_2samp(a, b, alpha=alpha)
         self.assertTrue(alpha > test.p_val)
+
+    def test_same_results_changing_alpha(self):
+        seed = 1234567890
+        np.random.seed(seed)
+
+        a = stats.norm.rvs(loc=5, scale=10, size=500)
+        b = stats.norm.rvs(loc=5, scale=10, size=500)
+
+        test = ttest_2samp(a, b)
+        expected = "2-Sample T-Test on Data of Size 500"
+        self.assertTrue(str(test) == expected, "Strings don't match")
 
 if __name__ == '__main__':
     unittest.main()

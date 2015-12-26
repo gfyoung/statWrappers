@@ -228,7 +228,8 @@ class ttest_1samp(object):
                ", Hypothesized Population Mean of " + str(self.popmean)
 
     __repr__ = __str__
-
+    __bytes__ = __str__
+    __unicode__ = __str__
 
 class ttest_2samp(object):
     def __init__(self, a, b, test_type='ind', equal_var=True,
@@ -484,6 +485,8 @@ class ttest_2samp(object):
         return "2-Sample T-Test on Data of Size " + str(len(self.a))
 
     __repr__ = __str__
+    __bytes__ = __str__
+    __unicode__ = __str__
 
 if __name__ == '__main__':
     from numpy import array
