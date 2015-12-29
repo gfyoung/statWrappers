@@ -1,0 +1,45 @@
+skip_tags: true
+clone_depth: 1
+
+os: Visual Studio 2015
+
+# Due to the difficulties of setting up numpy and
+# scipy in Windows using pip due to the lack of
+# pre-installed software like LAPACK, we use
+# Conda instead. Conda does not support Python 3.2
+# though. Fortunately, there are already have been
+# warnings for future dropping of support for
+# Python 3.2 on some libraries/modules, so not
+# being able to test this version of Python is not
+# such a bad thing.
+environment:
+   matrix:
+      - PYTHON_VERSION: 2.6
+        MINICONDA: C:\Miniconda
+      - PYTHON_VERSION: 2.7
+        MINICONDA: C:\Miniconda
+      - PYTHON_VERSION: 3.3
+        MINICONDA: C:\Miniconda3
+      - PYTHON_VERSION: 3.4
+        MINICONDA: C:\Miniconda3
+      - PYTHON_VERSION: 3.5
+        MINICONDA: C:\Miniconda3
+
+platform:
+   - x86
+   - x64
+
+build_script:
+   - uname -a
+   - df -h
+   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+   - conda config --set always_yes yes --set changeps1 no
+   - conda update -q conda
+   - conda info -a
+   # Build into own Conda test environment in
+   # order to control the build environment
+   - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy nose"
+   - activate test-environment
+
+test_script:
+   - nosetests
