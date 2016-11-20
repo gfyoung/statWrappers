@@ -1,1 +1,9 @@
+# MacOS files
+.DS_Store
+
+# IntelliJ files
+.idea
+HelloUser.iml
+
+# Python files
 *.pyc
