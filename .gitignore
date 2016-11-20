@@ -3,7 +3,7 @@
 
 # IntelliJ files
 .idea
-HelloUser.iml
+statWrappers.iml
 
 # Python files
 *.pyc
